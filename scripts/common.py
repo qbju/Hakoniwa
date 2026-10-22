@@ -28,7 +28,7 @@ CATEGORIES = {
     "System", "Theming", "Time", "Writing",
 }
 
-REQUIRED = ["name", "package", "repo", "license", "apk", "signer", "summary", "description", "categories", "screenshots"]
+REQUIRED = ["name", "package", "repo", "license", "apk", "signer", "summary", "description", "categories", "screenshots", "author"]
 SHOT_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*\.(png|jpe?g)$")
 SHOT_MIN, SHOT_MAX, SHOT_BYTES = 2, 8, 5 * 1024 * 1024
 PKG_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$")
@@ -73,6 +73,10 @@ def validate_definition(path_name: str, data) -> list:
             errs.append(f"カテゴリ `{c}` は使えません（{', '.join(sorted(CATEGORIES))}）")
     if len(str(data["name"]).strip()) > 50:
         errs.append("`name`（タイトル）は50文字以内で")
+    if len(str(data["author"]).strip()) > 50:
+        errs.append("`author`（作者名）は50文字以内で")
+    if data.get("website") and not re.match(r"^https://[^\s/]+\.[^\s]+$", str(data["website"])):
+        errs.append("`website`（公式サイト、任意）は https:// で始まるURLにしてください")
     if len(str(data["summary"])) > 80:
         errs.append("`summary` は80文字以内で")
     if len(str(data["description"]).strip()) < 30:
@@ -84,6 +88,18 @@ def validate_definition(path_name: str, data) -> list:
         if not SHOT_RE.match(str(x)):
             errs.append(f"スクリーンショット `{x}` は `apps/{pkg}/screenshots/` 内のPNG/JPEGのファイル名で書いてください")
     return errs
+
+
+def repo_owner(data) -> str:
+    return str(data["repo"]).split("/")[0].lower()
+
+
+def author_conflicts(data, others) -> list:
+    """同じGitHubアカウント（repoのowner）のアプリは作者名をそろえる。違うものの一覧を返す。"""
+    me = str(data["author"]).strip()
+    return [(o["package"], str(o.get("author", "")).strip()) for o in others
+            if o.get("package") != data["package"] and repo_owner(o) == repo_owner(data)
+            and str(o.get("author", "")).strip() != me]
 
 
 def screenshot_paths(data) -> list:
