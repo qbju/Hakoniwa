@@ -37,7 +37,7 @@ public final class Repo {
     }
 
     public static final class App {
-        public String pkg, name, summary, description, license, author, source, issues, changelog, icon, signer;
+        public String pkg, name, summary, description, license, author, authorWeb, website, source, issues, changelog, icon, signer;
         public List<String> categories = new ArrayList<>();
         public List<String> screenshots = new ArrayList<>();
         public List<Version> versions = new ArrayList<>();
@@ -107,6 +107,8 @@ public final class Repo {
             a.description = loc(m.opt("description"), "").trim();
             a.license = m.optString("license", "");
             a.author = m.optString("authorName", "");
+            a.authorWeb = m.optString("authorWebSite", "");
+            a.website = m.optString("webSite", "");
             a.source = m.optString("sourceCode", "");
             a.issues = m.optString("issueTracker", "");
             a.changelog = m.optString("changelog", "");
