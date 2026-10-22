@@ -1,7 +1,10 @@
 // Hakoniwa: hakoniwa.i2p.workers.dev
-// ストアページ・F-Droid index・JSON・アイコンは qbju/Hakoniwa の dist ブランチ（CIが生成）から取得して返す。
+// ストアページ(index.html)はWorkerに静的に同梱し、apps.jsonをブラウザで読んで一覧を描く。
+// F-Droid index・JSON・アイコンは qbju/Hakoniwa の dist ブランチ（CIが生成）から取得して返す。
 // APK は保存も中継もせず、apk-redirects.json に従って元の GitHub Release へ 302。
 // Workerは一度デプロイすれば再デプロイ不要（アプリ追加は dist の更新だけで反映）。
+import PAGE from "./index.html";
+
 const RAW = "https://raw.githubusercontent.com/qbju/Hakoniwa/dist";
 const TYPES = {
   html: "text/html; charset=utf-8", json: "application/json; charset=utf-8", jar: "application/java-archive",
@@ -27,6 +30,11 @@ export default {
       return target ? Response.redirect(target, 302) : new Response("not found", { status: 404 });
     }
 
+    if (path === "/" || path === "/index.html") {
+      return new Response(req.method === "HEAD" ? null : PAGE, {
+        headers: { "content-type": TYPES.html, "cache-control": "public, max-age=300", "x-content-type-options": "nosniff" },
+      });
+    }
     if (path.endsWith("/")) path += "index.html";
     let r = await raw(path, short(path) ? 300 : 86400);
     if (r.status === 404 && !path.split("/").pop().includes(".")) {
