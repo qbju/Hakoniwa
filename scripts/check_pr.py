@@ -32,12 +32,27 @@ def main():
     if not targets and not others:
         lines.append("アプリ定義の追加・変更はありません（削除のみ）。レビューしてください。")
 
+    pr_defs, changed_pkgs = [], set()
+    for f in files:
+        m = re.match(r"^apps/([^/]+)\.yml$", f["filename"])
+        if m:
+            changed_pkgs.add(m.group(1))
+    for f in targets:
+        try:
+            raw = common.gh_api(f"/repos/{head_repo}/contents/{f['filename']}?ref={head_sha}")
+            d = yaml.safe_load(base64.b64decode(raw["content"]).decode("utf-8"))
+            if isinstance(d, dict):
+                pr_defs.append(d)
+        except Exception:  # noqa: BLE001
+            pass
+
     for f in targets:
         name = f["filename"]
         lines += [f"### `{name}`", ""]
         try:
             raw = common.gh_api(f"/repos/{head_repo}/contents/{name}?ref={head_sha}")
             data = yaml.safe_load(base64.b64decode(raw["content"]).decode("utf-8"))
+            data = next((d for d in pr_defs if d == data), data)
         except Exception as e:  # noqa: BLE001
             ok = False
             lines.append(f"- ❌ YAMLを読めません: {e}")
@@ -47,7 +62,15 @@ def main():
             ok = False
             lines += [f"- ❌ {e}" for e in errs]
             continue
-        lines.append("- ✅ 形式OK（タイトル・説明・スクリーンショット記載あり）")
+        lines.append("- ✅ 形式OK（タイトル・説明・作者・スクリーンショット記載あり）")
+        base_apps = [a for a in common.load_apps() if a.get("package") not in changed_pkgs]
+        bad = common.author_conflicts(data, base_apps + [d for d in pr_defs if d is not data])
+        if bad:
+            ok = False
+            lines.append(f"- ❌ GitHubアカウント `{common.repo_owner(data)}` の他のアプリと作者名が違います（同じアカウントなら作者名をそろえてください）: "
+                         + ", ".join(f"`{p}` は「{a}」" for p, a in bad))
+        else:
+            lines.append(f"- ✅ 作者名「{data['author']}」（{common.repo_owner(data)} の他のアプリと一致）")
         shot_errs = []
         for sp in common.screenshot_paths(data):
             try:
