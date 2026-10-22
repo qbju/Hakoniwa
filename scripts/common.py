@@ -113,10 +113,31 @@ def releases_with_apk(app, limit=2):
         assets = [a for a in rel.get("assets", []) if pat.search(a["name"])]
         if len(assets) == 1:
             out.append({"tag": rel["tag_name"], "url": assets[0]["browser_download_url"],
-                        "asset": assets[0]["name"], "size": assets[0]["size"]})
+                        "asset": assets[0]["name"], "size": assets[0]["size"],
+                        "published": rel.get("published_at") or rel.get("created_at")})
         if len(out) >= limit:
             break
     return out
+
+
+def download_count(app) -> int:
+    """apk正規表現に合う資産の累計ダウンロード数（GitHubの公開カウンタ、直近100リリース分）。"""
+    pat = re.compile(str(app["apk"]))
+    total = 0
+    for rel in gh_api(f"/repos/{app['repo']}/releases?per_page=100"):
+        total += sum(a.get("download_count", 0) for a in rel.get("assets", []) if pat.search(a["name"]))
+    return total
+
+
+def added_date(pkg: str) -> str:
+    """apps/<pkg>.yml が最初にコミットされた日時（ISO8601）。履歴が無ければ空。"""
+    import subprocess
+    try:
+        out = subprocess.run(["git", "log", "--diff-filter=A", "--follow", "--format=%cI", "--", f"apps/{pkg}.yml"],
+                             cwd=ROOT, capture_output=True, text=True, timeout=30).stdout.split()
+        return out[-1] if out else ""
+    except Exception:  # noqa: BLE001
+        return ""
 
 
 def download(url: str, dest: Path, max_bytes=300 * 1024 * 1024):
