@@ -67,10 +67,9 @@ jobs:
           rsync -a --exclude '*.apk' --exclude '*.apk.asc' --exclude 'index_unsigned.jar' fdroid/repo/ public/repo/
           cp apk-redirects.json stats.json public/
           cd scripts && python build_site.py
-      - name: Push built files to dist branch (deployed to Workers from outside GitHub)
+      - name: Push built files to dist branch (Worker が raw から配信)
         run: |
           set -euo pipefail
-          cp -r worker public/_worker
           cd public
           git init -q -b dist
           git config user.name "hakoniwa-bot"
