@@ -36,6 +36,7 @@ def metadata_for(app):
         m["WebSite"] = app["website"]
     if app.get("author"):
         m["AuthorName"] = app["author"]
+        m["AuthorWebSite"] = f"https://github.com/{app['repo'].split('/')[0]}"
     if app.get("anti_features"):
         m["AntiFeatures"] = app["anti_features"]
     return m
@@ -45,8 +46,11 @@ def main():
     REPO.mkdir(parents=True, exist_ok=True)
     META.mkdir(parents=True, exist_ok=True)
     redirects, problems, stats = {}, [], {}
-    for app in common.load_apps():
+    all_apps = common.load_apps()
+    for app in all_apps:
         pkg = app["package"]
+        if common.author_conflicts(app, all_apps):
+            problems.append(f"{pkg}: 同じGitHubアカウントのアプリと作者名が違います（掲載は続行）")
         (META / f"{pkg}.yml").write_text(yaml.safe_dump(metadata_for(app), allow_unicode=True, sort_keys=False), encoding="utf-8")
         shots_dir = META / pkg / "en-US" / "phoneScreenshots"
         shots_dir.mkdir(parents=True, exist_ok=True)
