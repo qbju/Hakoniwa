@@ -48,6 +48,14 @@ def main():
     for app in common.load_apps():
         pkg = app["package"]
         (META / f"{pkg}.yml").write_text(yaml.safe_dump(metadata_for(app), allow_unicode=True, sort_keys=False), encoding="utf-8")
+        shots_dir = META / pkg / "en-US" / "phoneScreenshots"
+        shots_dir.mkdir(parents=True, exist_ok=True)
+        for i, sp in enumerate(common.screenshot_paths(app), 1):
+            src = common.ROOT / sp
+            if src.exists() and not common.check_image(src.read_bytes(), sp):
+                (shots_dir / f"{i:02d}{src.suffix.lower()}").write_bytes(src.read_bytes())
+            else:
+                problems.append(f"{pkg}: スクリーンショット {sp} が無いか不正")
         try:
             rels = common.releases_with_apk(app, limit=KEEP)
         except Exception as e:  # noqa: BLE001
