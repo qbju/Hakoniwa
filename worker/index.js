@@ -30,7 +30,7 @@ export default {
       return target ? Response.redirect(target, 302) : new Response("not found", { status: 404 });
     }
 
-    if (path === "/" || path === "/index.html") {
+    if (path === "/" || path === "/index.html" || /^\/app\/[A-Za-z0-9_.]+\/?$/.test(path)) {
       return new Response(req.method === "HEAD" ? null : PAGE, {
         headers: { "content-type": TYPES.html, "cache-control": "public, max-age=300", "x-content-type-options": "nosniff" },
       });
