@@ -82,7 +82,13 @@ public class DetailActivity extends Activity implements Installer.Listener {
         col.setPadding(Ui.dp(this, 16), 0, 0, 0);
         col.addView(Ui.text(this, app.name, 24, Ui.fg(this), false));
         col.addView(Ui.text(this, app.summary, 14, Ui.mut(this), false));
-        if (!app.author.isEmpty()) col.addView(Ui.text(this, app.author, 13, Ui.BLUE, false));
+        if (!app.author.isEmpty()) {
+            TextView au = Ui.text(this, app.author, 13, Ui.BLUE, false);
+            if (app.authorWeb.startsWith("https://")) au.setOnClickListener(x -> {
+                try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(app.authorWeb))); } catch (Exception ignored) { }
+            });
+            col.addView(au);
+        }
         head.addView(col, new LinearLayout.LayoutParams(0, -2, 1));
         body.addView(head);
 
@@ -143,6 +149,8 @@ public class DetailActivity extends Activity implements Installer.Listener {
         body.addView(desc);
 
         section("リンク・情報");
+        info("作者", app.author, app.authorWeb.isEmpty() ? null : app.authorWeb);
+        info("公式サイト", app.website, app.website);
         info("ライセンス", app.license, null);
         info("ソースコード", app.source, app.source);
         info("Issue", app.issues, app.issues);
