@@ -41,10 +41,12 @@ jobs:
           set -euo pipefail
           test -n "$KEYSTORE_B64" || { echo "::error::Secrets HAKONIWA_KEYSTORE_B64 がありません"; exit 1; }
           echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/ks.p12"
+          mkdir -p fdroid/repo/icons && cp assets/icon.png fdroid/repo/icons/icon.png
           cd fdroid
           cat > config.yml <<CFG
           repo_url: $REPO_URL
           repo_name: Hakoniwa
+          repo_icon: icon.png
           repo_description: >-
             GitHub Releasesで配布されているOSSのAndroidアプリを集めたF-Droid互換ストア。
             APKは開発者本人の署名で、収録前に人間がレビューしています。 https://hakoniwa.i2p.workers.dev/
