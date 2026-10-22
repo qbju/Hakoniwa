@@ -22,11 +22,13 @@ def main():
     files = common.gh_api(f"/repos/{repo}/pulls/{pr}/files?per_page=100")
 
     lines, ok = ["## 🏝️ Hakoniwa 自動チェック", ""], True
-    others = [f["filename"] for f in files if not (f["filename"].startswith("apps/") and f["filename"].endswith(".yml"))]
+    import re
+    allowed = re.compile(r"^apps/([^/]+\.yml|[^/]+/screenshots/[^/]+)$")
+    others = [f["filename"] for f in files if not allowed.match(f["filename"])]
     if others:
         ok = False
-        lines.append("⚠️ アプリ追加PRで変更できるのは `apps/*.yml` だけです: " + ", ".join(f"`{x}`" for x in others))
-    targets = [f for f in files if f["filename"].startswith("apps/") and f["filename"].endswith(".yml") and f["status"] != "removed"]
+        lines.append("⚠️ アプリ追加PRで変更できるのは `apps/*.yml` と `apps/<パッケージ名>/screenshots/` だけです: " + ", ".join(f"`{x}`" for x in others))
+    targets = [f for f in files if re.match(r"^apps/[^/]+\.yml$", f["filename"]) and f["status"] != "removed"]
     if not targets and not others:
         lines.append("アプリ定義の追加・変更はありません（削除のみ）。レビューしてください。")
 
@@ -45,7 +47,22 @@ def main():
             ok = False
             lines += [f"- ❌ {e}" for e in errs]
             continue
-        lines.append("- ✅ 形式OK")
+        lines.append("- ✅ 形式OK（タイトル・説明・スクリーンショット記載あり）")
+        shot_errs = []
+        for sp in common.screenshot_paths(data):
+            try:
+                c = common.gh_api(f"/repos/{head_repo}/contents/{sp}?ref={head_sha}")
+                b = base64.b64decode(c["content"]) if c.get("content") else common.fetch_bytes(c["download_url"])
+                e = common.check_image(b, sp)
+                if e:
+                    shot_errs.append(e)
+            except Exception:  # noqa: BLE001
+                shot_errs.append(f"`{sp}` が見つかりません")
+        if shot_errs:
+            ok = False
+            lines += [f"- ❌ {e}" for e in shot_errs]
+        else:
+            lines.append(f"- ✅ スクリーンショット {len(common.screenshot_paths(data))} 枚OK")
         try:
             lic, info = common.repo_license(data["repo"])
             if info.get("archived"):
