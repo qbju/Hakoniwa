@@ -1,0 +1,79 @@
+name: publish
+
+on:
+  push:
+    branches: [main]
+    paths: ["apps/**", "scripts/**", ".github/workflows/publish.yml"]
+  schedule:
+    - cron: "17 */6 * * *"   # 6時間おきにReleasesを確認
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+env:
+  REPO_URL: https://hakoniwa.i2p.workers.dev/repo
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install fdroidserver pyyaml "qrcode>=7.4"
+      - name: Collect APKs from GitHub Releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cd scripts && python build_repo.py
+      - name: Sign index
+        env:
+          KEYSTORE_B64: ${{ secrets.HAKONIWA_KEYSTORE_B64 }}
+          KEYSTORE_PASS: ${{ secrets.HAKONIWA_KEYSTORE_PASS }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_B64" || { echo "::error::Secrets HAKONIWA_KEYSTORE_B64 がありません"; exit 1; }
+          echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/ks.p12"
+          cd fdroid
+          cat > config.yml <<CFG
+          repo_url: $REPO_URL
+          repo_name: Hakoniwa
+          repo_description: >-
+            GitHub Releasesで配布されているOSSのAndroidアプリを集めたF-Droid互換ストア。
+            APKは開発者本人の署名で、収録前に人間がレビューしています。 https://hakoniwa.i2p.workers.dev/
+          archive_older: 0
+          repo_keyalias: hakoniwa
+          keystore: $RUNNER_TEMP/ks.p12
+          keystorepass: $KEYSTORE_PASS
+          keypass: $KEYSTORE_PASS
+          keydname: CN=Hakoniwa, O=Hakoniwa
+          CFG
+          chmod 600 config.yml
+          fdroid update --pretty --use-date-from-apk
+          FP=$(openssl pkcs12 -in "$RUNNER_TEMP/ks.p12" -nokeys -passin env:KEYSTORE_PASS | openssl x509 -outform DER | sha256sum | cut -d' ' -f1 | tr a-f A-F)
+          echo "REPO_FINGERPRINT=$FP" >> "$GITHUB_ENV"
+          rm -f config.yml "$RUNNER_TEMP/ks.p12"
+      - name: Assemble site (APKs are NOT published; the Worker redirects to GitHub Releases)
+        run: |
+          set -euo pipefail
+          mkdir -p public
+          rsync -a --exclude '*.apk' --exclude '*.apk.asc' --exclude 'index_unsigned.jar' fdroid/repo/ public/repo/
+          cp apk-redirects.json public/
+          cd scripts && python build_site.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v4
