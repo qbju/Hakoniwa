@@ -1,9 +1,0 @@
-# dist ブランチのルートで実行する想定（index.js / wrangler.toml は _worker/ に入る）
-name = "hakoniwa"
-main = "index.js"
-compatibility_date = "2026-10-01"
-workers_dev = true
-
-[assets]
-directory = ".."
-binding = "ASSETS"
