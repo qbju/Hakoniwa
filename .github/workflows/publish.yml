@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # ビルド結果を dist ブランチへ push するため（Cloudflareの認証情報はGitHubに置かない）
 
 concurrency:
   group: publish
@@ -67,10 +67,14 @@ jobs:
           rsync -a --exclude '*.apk' --exclude '*.apk.asc' --exclude 'index_unsigned.jar' fdroid/repo/ public/repo/
           cp apk-redirects.json stats.json public/
           cd scripts && python build_site.py
-      - name: Deploy to Cloudflare Workers (static assets + APK redirect)
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: worker
-          command: deploy
+      - name: Push built files to dist branch (deployed to Workers from outside GitHub)
+        run: |
+          set -euo pipefail
+          cp -r worker public/_worker
+          cd public
+          git init -q -b dist
+          git config user.name "hakoniwa-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "build ${GITHUB_SHA::7} $(date -u +%FT%TZ)"
+          git push -fq "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" dist
