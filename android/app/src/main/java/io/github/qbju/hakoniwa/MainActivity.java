@@ -260,7 +260,7 @@ public class MainActivity extends Activity implements Installer.Listener {
             r.summary.setText(a.summary);
             String err;
             synchronized (Installer.class) { err = Installer.ERROR.get(a.pkg); }
-            r.meta.setText(err != null ? "⚠ " + err : a.license + " ・ v" + a.latest().name);
+            r.meta.setText(err != null ? "⚠ " + err : (a.author.isEmpty() ? "" : a.author + " ・ ") + a.license + " ・ v" + a.latest().name);
             bindAction(MainActivity.this, r.btn, a);
             return cv;
         }
