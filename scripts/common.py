@@ -28,7 +28,9 @@ CATEGORIES = {
     "System", "Theming", "Time", "Writing",
 }
 
-REQUIRED = ["name", "package", "repo", "license", "apk", "signer", "summary", "categories"]
+REQUIRED = ["name", "package", "repo", "license", "apk", "signer", "summary", "description", "categories", "screenshots"]
+SHOT_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*\.(png|jpe?g)$")
+SHOT_MIN, SHOT_MAX, SHOT_BYTES = 2, 8, 5 * 1024 * 1024
 PKG_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)+$")
 REPO_RE = re.compile(r"^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
@@ -69,9 +71,40 @@ def validate_definition(path_name: str, data) -> list:
     for c in cats:
         if c not in CATEGORIES:
             errs.append(f"カテゴリ `{c}` は使えません（{', '.join(sorted(CATEGORIES))}）")
+    if len(str(data["name"]).strip()) > 50:
+        errs.append("`name`（タイトル）は50文字以内で")
     if len(str(data["summary"])) > 80:
         errs.append("`summary` は80文字以内で")
+    if len(str(data["description"]).strip()) < 30:
+        errs.append("`description` は30文字以上で、どんなアプリか具体的に書いてください")
+    shots = data["screenshots"] if isinstance(data["screenshots"], list) else [data["screenshots"]]
+    if not SHOT_MIN <= len(shots) <= SHOT_MAX:
+        errs.append(f"`screenshots` は{SHOT_MIN}〜{SHOT_MAX}枚にしてください")
+    for x in shots:
+        if not SHOT_RE.match(str(x)):
+            errs.append(f"スクリーンショット `{x}` は `apps/{pkg}/screenshots/` 内のPNG/JPEGのファイル名で書いてください")
     return errs
+
+
+def screenshot_paths(data) -> list:
+    """定義中のスクリーンショットのリポ内パス。"""
+    shots = data["screenshots"] if isinstance(data["screenshots"], list) else [data["screenshots"]]
+    return [f"apps/{data['package']}/screenshots/{x}" for x in shots]
+
+
+def check_image(b: bytes, name: str):
+    """PNG/JPEGであること・サイズ・縦横を確認。問題があれば文字列、なければNone。"""
+    if len(b) > SHOT_BYTES:
+        return f"`{name}` が5MBを超えています"
+    if b[:8] == b"\x89PNG\r\n\x1a\n":
+        w, h = int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big")
+    elif b[:3] == b"\xff\xd8\xff":
+        w = h = None
+    else:
+        return f"`{name}` がPNG/JPEGではありません"
+    if w is not None and (min(w, h) < 320 or max(w, h) > 3840):
+        return f"`{name}` の大きさ {w}x{h} は短辺320px以上・長辺3840px以下にしてください"
+    return None
 
 
 def normalize_signers(data) -> set:
@@ -149,6 +182,15 @@ def download(url: str, dest: Path, max_bytes=300 * 1024 * 1024):
             if n > max_bytes:
                 raise RuntimeError("APKが大きすぎます (300MB超)")
             f.write(chunk)
+
+
+def fetch_bytes(url: str, max_bytes=6 * 1024 * 1024) -> bytes:
+    req = urllib.request.Request(url, headers={"User-Agent": "hakoniwa-store"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        b = r.read(max_bytes + 1)
+    if len(b) > max_bytes:
+        raise RuntimeError("大きすぎます")
+    return b
 
 
 def build_tool(name: str) -> str:
