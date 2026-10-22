@@ -1,0 +1,6 @@
+__pycache__/
+fdroid/
+public/
+apk-redirects.json
+scripts/check-result.md
+*.p12
