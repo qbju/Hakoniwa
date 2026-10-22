@@ -4,6 +4,7 @@
   fdroid/repo/*.apk           … fdroid update 用（公開時には削除）
   fdroid/metadata/<pkg>.yml   … apps/*.yml から生成
   apk-redirects.json          … {"<apk名>": "<元のGitHub Release URL>"}
+  stats.json                  … {"<pkg>": {"downloads", "updated", "added"}}（ストアページの並べ替え用）
 署名が定義と違うAPK・パッケージ名が違うAPKは取り込まない（乗っ取り対策）。
 """
 import json
@@ -43,7 +44,7 @@ def metadata_for(app):
 def main():
     REPO.mkdir(parents=True, exist_ok=True)
     META.mkdir(parents=True, exist_ok=True)
-    redirects, problems = {}, []
+    redirects, problems, stats = {}, [], {}
     for app in common.load_apps():
         pkg = app["package"]
         (META / f"{pkg}.yml").write_text(yaml.safe_dump(metadata_for(app), allow_unicode=True, sort_keys=False), encoding="utf-8")
@@ -52,6 +53,12 @@ def main():
         except Exception as e:  # noqa: BLE001
             problems.append(f"{pkg}: リリース取得失敗 {e}")
             continue
+        try:
+            dl = common.download_count(app)
+        except Exception:  # noqa: BLE001
+            dl = 0
+        stats[pkg] = {"downloads": dl, "updated": rels[0]["published"] if rels else "",
+                      "added": common.added_date(pkg)}
         want = common.normalize_signers(app)
         for rel in rels:
             tmp = REPO / f".{pkg}.download"
@@ -69,6 +76,7 @@ def main():
                 problems.append(f"{pkg} {rel['tag']}: {e}")
                 tmp.unlink(missing_ok=True)
     (common.ROOT / "apk-redirects.json").write_text(json.dumps(redirects, indent=1), encoding="utf-8")
+    (common.ROOT / "stats.json").write_text(json.dumps(stats, indent=1), encoding="utf-8")
     print(f"APK {len(redirects)} 件を取り込み")
     for p in problems:
         print("::warning::" + p)
