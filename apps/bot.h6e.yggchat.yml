@@ -9,6 +9,9 @@ description: |
   YggChatはYggdrasil Network上で端末同士が直接つながるP2Pチャットです。
   サーバーやアカウント登録は不要で、1対1・グループチャット、画像送信、
   QRコードでの連絡先追加、端末移行、暗号化バックアップに対応しています。
+screenshots:
+  - 01-list.png
+  - 02-chat.png
 categories: [Internet, Connectivity]
 author: qbju
 anti_features: []
