@@ -36,6 +36,7 @@ h2.sec{font-size:1.1rem;font-weight:500;border-bottom:1px solid var(--line);padd
 .tag{font-size:.75em;border:1px solid var(--line);border-radius:2px;padding:0 .5em;margin-right:.3em;color:var(--mut)}
 footer{color:var(--mut);font-size:.82em;border-top:1px solid var(--line);margin-top:2rem}
 .mut{color:var(--mut)}
+ul,ol{padding-left:1.4em}li{margin:.25em 0}
 </style>
 <div class=top><div class=in><a class=logo href="/"><svg width=32 height=32 viewBox="0 0 512 512" aria-hidden=true>
 <path d="M256 120 400 192v168l-144 72-144-72V192z" fill="#fff"/>
@@ -43,7 +44,7 @@ footer{color:var(--mut);font-size:.82em;border-top:1px solid var(--line);margin-
 <ellipse cx="256" cy="200" rx="78" ry="34" fill="#43A047"/>
 <path d="M256 112l30 70h-60z" fill="#2E7D32"/><rect x="250" y="178" width="12" height="26" fill="#6D4C41"/>
 <path d="M256 264v168l-144-72V192z" fill="#BBDEFB"/></svg>Hakoniwa</a>
-<nav><a href="/">アプリ</a><a href="/#add">リポジトリを追加</a><a href="https://github.com/qbju/Hakoniwa">GitHub</a></nav></div></div>
+<nav><a href="/">アプリ</a><a href="/#add">リポジトリを追加</a><a href="/about">Hakoniwaについて</a><a href="https://github.com/qbju/Hakoniwa">GitHub</a></nav></div></div>
 <div class=wrap id=view><p class=mut>読み込み中…</p></div>
 <div class=wrap><footer><p>Hakoniwa は GitHub Releases で配布されている OSS の Android アプリを集めた F-Droid 互換ストアです。APK は開発者本人が署名したもので、Hakoniwa は署名を確認してから掲載しています。ダウンロード数は GitHub Releases の累計。</p>
 <p>アプリの追加は <a href="https://github.com/qbju/Hakoniwa">GitHub</a> に PR で（レビュー後に収録）。データ: <a href="https://raw.githubusercontent.com/qbju/Hakoniwa/dist/repo/index-v2.json">index-v2.json</a> ・ <a href="https://raw.githubusercontent.com/qbju/Hakoniwa/dist/apps.json">apps.json</a></p></footer></div>
@@ -110,9 +111,44 @@ function page(pkg){const a=apps().find(x=>x.pkg===pkg);
  <a class="btn${i?' flat':''}" href="${esc(apk(v))}">APK をダウンロード ${mb(v.file.size)}</a></div>`).join('')}
  <p><a href="/">← アプリ一覧へ</a></p>`;scrollTo(0,0);}
 
-function route(){const p=decodeURIComponent(location.pathname),m=p.match(/^\/app\/([A-Za-z0-9_.]+)\/?$/);m?page(m[1]):home()}
+
+function about(){document.title='Hakoniwaについて — Hakoniwa';
+ view.innerHTML=`<div class=head><svg width=96 height=96 viewBox="0 0 512 512" aria-hidden=true><rect width=512 height=512 rx=112 fill="#1976D2"/>${document.querySelector('.logo svg').innerHTML}</svg><div><h1>Hakoniwa について</h1><div class=s>OSS Android アプリの箱庭。日本語で探せる F-Droid 互換ストアです。</div></div></div>
+ <h2 class=sec>Hakoniwa とは</h2>
+ <p>GitHub Releases で配布されているオープンソースの Android アプリを集めて、日本語で探せるようにしたストアです。F-Droid 互換のリポジトリなので、F-Droid・Droid-ify・Neo Store などのクライアントや Hakoniwa アプリから、インストールと自動更新ができます。</p>
+ <h2 class=sec>しくみ</h2>
+ <ul>
+ <li><b>APK は開発者のもの。</b>Hakoniwa は APK をビルドも再署名もしません。ダウンロードボタンは各アプリの GitHub Release に直接つながっています。</li>
+ <li><b>署名を確認。</b>登録時の署名証明書（SHA-256）と違う鍵で署名された APK は、自動で取り込みを拒否します。Release が乗っ取られても、偽物は配信されません。</li>
+ <li><b>人間がレビュー。</b>アプリの追加・変更はすべて GitHub の PR で、自動チェックを通ったうえでメンテナーが承認したものだけが載ります。</li>
+ <li><b>インデックスに署名。</b>アプリ一覧（F-Droid index）は Hakoniwa の鍵で署名しています。指紋は下のとおりです。</li>
+ <li><b>自動で更新。</b>各アプリの最新 2 バージョンを、新しい Release が出ると数時間以内に反映します。</li>
+ </ul>
+ <h2 class=sec>使い方</h2>
+ <ol>
+ <li>F-Droid 系のクライアントで <a href="/#add">リポジトリを追加</a> するか、Hakoniwa アプリを入れる</li>
+ <li>アプリを選んでインストール。以降の更新はクライアントが知らせてくれます</li>
+ <li>ブラウザからは各アプリのページの「APK をダウンロード」でも入手できます</li>
+ </ol>
+ <h2 class=sec>収録基準</h2>
+ <ul>
+ <li>ソースコードが GitHub で再配布可能な OSS ライセンスで公開されている</li>
+ <li>GitHub Releases に開発者が署名した APK がある</li>
+ <li>タイトル・説明・作者・スクリーンショット（2 枚以上）がそろっている</li>
+ <li>マルウェアや詐欺などを目的としていない。広告やトラッキングなどは申告して表示</li>
+ </ul>
+ <p>開発者本人でなくても推薦できます。手順は <a href="https://github.com/qbju/Hakoniwa/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> へ。</p>
+ <h2 class=sec>掲載停止・問い合わせ</h2>
+ <p>開発者から掲載停止の依頼があれば、すぐに削除します。問題のあるアプリの報告もあわせて <a href="https://github.com/qbju/Hakoniwa">GitHub</a> へどうぞ。</p>
+ <h2 class=sec>リポジトリ情報</h2>
+ <dl class=kv><dt>アドレス</dt><dd><code>https://hakoniwa.i2p.workers.dev/repo</code></dd><dt>署名鍵の指紋</dt><dd><code>${FP}</code></dd>
+ <dt>データ</dt><dd><a href="${RAW}/repo/index-v2.json">index-v2.json</a> ・ <a href="${RAW}/apps.json">apps.json</a></dd>
+ <dt>ソース</dt><dd><a href="https://github.com/qbju/Hakoniwa">github.com/qbju/Hakoniwa</a></dd><dt>運営</dt><dd><a href="https://github.com/qbju">qbju</a></dd></dl>
+ <p class=mut style="font-size:.85em">Hakoniwa は F-Droid 公式とは関係のない、独立したリポジトリです。各アプリの著作権・商標はそれぞれの作者に帰属します。</p>
+ <p><a href="/">← アプリ一覧へ</a></p>`;scrollTo(0,0);}
+function route(){const p=decodeURIComponent(location.pathname),m=p.match(/^\/app\/([A-Za-z0-9_.]+)\/?$/);/^\/about\/?$/.test(p)?about():m?page(m[1]):home()}
 document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||e.defaultPrevented||a.target||e.metaKey||e.ctrlKey)return;
- const u=new URL(a.href,location.href);if(u.origin===location.origin&&(u.pathname==='/'||u.pathname.startsWith('/app/'))&&!u.pathname.endsWith('.apk')){e.preventDefault();history.pushState(0,'',u.pathname+u.hash);route()}});
+ const u=new URL(a.href,location.href);if(u.origin===location.origin&&(u.pathname==='/'||u.pathname==='/about'||u.pathname.startsWith('/app/'))&&!u.pathname.endsWith('.apk')){e.preventDefault();history.pushState(0,'',u.pathname+u.hash);route()}});
 onpopstate=route;
 Promise.all([j('/repo/index-v2.json'),j('/stats.json'),j('/apk-redirects.json')]).then(([i,s,r])=>{IDX=i;STATS=s;REDIR=r;
  const u=new URLSearchParams(location.search);if(u.get('q'))q0=u.get('q');route()}).catch(()=>view.innerHTML='<p>一覧を読み込めませんでした。</p>');
