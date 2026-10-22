@@ -66,7 +66,7 @@ function list(){const s=q0.trim().toLowerCase(),A=apps();
  const cmp={added:(a,b)=>b.added-a.added,updated:(a,b)=>b.updated-a.updated,dl:(a,b)=>b.dl-a.dl,name:(a,b)=>a.name.localeCompare(b.name,'ja')}[k];
  const r=A.sort(cmp).filter(a=>(!s||(a.name+' '+a.summary+' '+a.pkg).toLowerCase().includes(s))&&(!cat||(a.m.categories||[]).includes(cat)));
  document.getElementById('list').innerHTML=r.map(a=>`<a class=pkg href="/app/${esc(a.pkg)}"><img src="${esc(a.icon)}" alt="" loading=lazy onerror="this.style.visibility='hidden'">
- <div><div class=n>${esc(a.name)}</div><div class=s>${esc(a.summary)}</div><div class=l>${esc(a.m.license||'')} ・ v${esc(a.latest.manifest.versionName)} ・ ⬇ ${a.dl.toLocaleString()}</div></div>
+ <div><div class=n>${esc(a.name)}</div><div class=s>${esc(a.summary)}</div><div class=l>${a.m.authorName?esc(a.m.authorName)+' ・ ':''}${esc(a.m.license||'')} ・ v${esc(a.latest.manifest.versionName)} ・ ⬇ ${a.dl.toLocaleString()}</div></div>
  <span class=dl><span class="btn" onclick="event.preventDefault();location.href='${esc(apk(a.latest))}'">ダウンロード</span></span></a>`).join('')||(A.length?'<p class=mut>見つかりませんでした。</p>':'<p>まだアプリがありません。</p>');}
 
 function home(){const A=apps(),n={};A.forEach(a=>(a.m.categories||[]).forEach(c=>n[c]=(n[c]||0)+1));
@@ -88,12 +88,14 @@ function page(pkg){const a=apps().find(x=>x.pkg===pkg);
  const m=a.m,L=a.latest;document.title=a.name+' — Hakoniwa';
  const row=(k,v)=>v?`<dt>${k}</dt><dd>${v}</dd>`:'';
  view.innerHTML=`<div class=head><img src="${esc(a.icon)}" alt="" onerror="this.style.visibility='hidden'"><div><h1>${esc(a.name)}</h1><div class=s>${esc(a.summary)}</div>
+ ${m.authorName?`<p style="margin:-.5rem 0 .8rem">作者: ${https(m.authorWebSite)?`<a href="${esc(m.authorWebSite)}" rel=noopener>${esc(m.authorName)}</a>`:esc(m.authorName)}${https(m.webSite)?` ・ <a href="${esc(m.webSite)}" rel=noopener>公式サイト</a>`:''}</p>`:''}
  <a class=btn href="${esc(apk(L))}">APK をダウンロード</a> <a class="btn flat" href="market://details?id=${esc(pkg)}">F-Droid で開く</a>
  <p class=mut style="font-size:.85em;margin:.5rem 0 0">v${esc(L.manifest.versionName)} ・ ${mb(L.file.size)} ・ Android ${esc(SDK[(L.manifest.usesSdk||{}).minSdkVersion]||'?')} 以上</p></div></div>
  <p>${(m.categories||[]).map(c=>`<span class=tag>${esc(CAT_JA[c]||c)}</span>`).join('')}</p>
  ${(loc((m.screenshots||{}).phone)||[]).length?`<div class=shots>${loc(m.screenshots.phone).map(x=>`<a href="${esc(RAW+'/repo'+x.name)}" target=_blank><img src="${esc(RAW+'/repo'+x.name)}" alt="スクリーンショット" loading=lazy></a>`).join('')}</div>`:''}
  <p class=desc>${esc(loc(m.description).trim())}</p>
- <h2 class=sec>リンク・情報</h2><dl class=kv>${row('ライセンス',esc(m.license))}${row('作者',esc(m.authorName))}
+ <h2 class=sec>リンク・情報</h2><dl class=kv>${row('ライセンス',esc(m.license))}${row('作者',m.authorName&&(https(m.authorWebSite)?`<a href="${esc(m.authorWebSite)}" rel=noopener>${esc(m.authorName)}</a>`:esc(m.authorName)))}
+ ${row('公式サイト',https(m.webSite)&&`<a href="${esc(m.webSite)}" rel=noopener>${esc(m.webSite)}</a>`)}
  ${row('ソースコード',https(m.sourceCode)&&`<a href="${esc(m.sourceCode)}" rel=noopener>${esc(m.sourceCode)}</a>`)}
  ${row('Issue',https(m.issueTracker)&&`<a href="${esc(m.issueTracker)}" rel=noopener>${esc(m.issueTracker)}</a>`)}
  ${row('変更履歴',https(m.changelog)&&`<a href="${esc(m.changelog)}" rel=noopener>${esc(m.changelog)}</a>`)}
