@@ -3,15 +3,13 @@ name: publish
 on:
   push:
     branches: [main]
-    paths: ["apps/**", "scripts/**", ".github/workflows/publish.yml"]
+    paths: ["apps/**", "scripts/**", "worker/**", ".github/workflows/publish.yml"]
   schedule:
     - cron: "17 */6 * * *"   # 6時間おきにReleasesを確認
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: publish
@@ -49,7 +47,7 @@ jobs:
           repo_name: Hakoniwa
           repo_description: >-
             GitHub Releasesで配布されているOSSのAndroidアプリを集めたF-Droid互換ストア。
-            APKは開発者本人の署名で、収録前に人間がレビューしています。 https://qbju.github.io/Hakoniwa/
+            APKは開発者本人の署名で、収録前に人間がレビューしています。 https://hakoniwa.i2p.workers.dev/
           archive_older: 0
           repo_keyalias: hakoniwa
           keystore: $RUNNER_TEMP/ks.p12
@@ -69,13 +67,10 @@ jobs:
           rsync -a --exclude '*.apk' --exclude '*.apk.asc' --exclude 'index_unsigned.jar' fdroid/repo/ public/repo/
           cp apk-redirects.json stats.json public/
           cd scripts && python build_site.py
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to Cloudflare Workers (static assets + APK redirect)
+        uses: cloudflare/wrangler-action@v3
         with:
-          path: public
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-    steps:
-      - uses: actions/deploy-pages@v4
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker
+          command: deploy
