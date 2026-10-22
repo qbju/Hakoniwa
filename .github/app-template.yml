@@ -12,7 +12,7 @@ screenshots:                        # 必須（2〜8枚、apps/<パッケージ�
   - 01.png
   - 02.png
 categories: [Internet]              # Connectivity, Development, Games, Internet, Security, System など
-author: 作者名                      # 任意
-website: https://example.com        # 任意
+author: 作者名                      # 必須（同じGitHubアカウントのアプリは同じ作者名に）
+website: https://example.com        # 任意（公式サイト）
 anti_features: []                   # 該当すれば NonFreeNet, Tracking, Ads など（任意）
 # prerelease: true                  # プレリリースも収録する場合（任意）
