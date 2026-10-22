@@ -1,0 +1,15 @@
+# apps/<パッケージ名>.yml として保存してPRを出してください
+name: アプリ名
+package: com.example.app            # APKのパッケージ名（ファイル名と同じ）
+repo: owner/repository              # GitHubのソースリポ
+license: GPL-3.0-only               # SPDX ID（リポのLICENSEと一致すること）
+apk: '-arm64-v8a-release\.apk$'     # Release資産のうち収録するAPKに1つだけ一致する正規表現
+signer: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef  # 署名証明書のSHA-256（apksigner verify --print-certs）
+summary: 80文字以内の一言説明
+description: |
+  もう少し詳しい説明（任意）
+categories: [Internet]              # Connectivity, Development, Games, Internet, Security, System など
+author: 作者名                      # 任意
+website: https://example.com        # 任意
+anti_features: []                   # 該当すれば NonFreeNet, Tracking, Ads など（任意）
+# prerelease: true                  # プレリリースも収録する場合（任意）
