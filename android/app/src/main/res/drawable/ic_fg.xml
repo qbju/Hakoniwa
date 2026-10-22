@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 箱庭: 箱の中の小さな島と木 -->
+<!-- Hakoniwa ロゴ（案A：箱の上の小島と木） -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#FFFFFF" android:pathData="M30,44 L54,32 L78,44 L78,72 L54,84 L30,72 Z" />
-    <path android:fillColor="#BBDEFB" android:pathData="M30,44 L54,56 L78,44 L54,32 Z" />
-    <path android:fillColor="#4CAF50" android:pathData="M42,48 Q54,40 66,48 Q54,55 42,48 Z" />
-    <path android:fillColor="#2E7D32" android:pathData="M54,28 L60,42 L48,42 Z" />
-    <path android:fillColor="#5D4037" android:pathData="M53,42 L55,42 L55,48 L53,48 Z" />
-    <path android:fillColor="#E3F2FD" android:pathData="M54,56 L54,84 L30,72 L30,44 Z" />
+    <group android:scaleX="0.2" android:scaleY="0.2" android:translateX="2.8" android:translateY="-0.4">
+        <path android:fillColor="#fff" android:pathData="M256 120 400 192v168l-144 72-144-72V192z" />
+        <path android:fillColor="#E3F2FD" android:pathData="M112 192l144 72 144-72-144-72z" />
+        <path android:fillColor="#43A047" android:pathData="M178.0,200.0 a78.0,34.0 0 1,0 156.0,0 a78.0,34.0 0 1,0 -156.0,0 z" />
+        <path android:fillColor="#2E7D32" android:pathData="M256 112l30 70h-60z" />
+        <path android:fillColor="#6D4C41" android:pathData="M250.0,178.0h12.0v26.0h-12.0z" />
+        <path android:fillColor="#BBDEFB" android:pathData="M256 264v168l-144-72V192z" />
+    </group>
 </vector>
