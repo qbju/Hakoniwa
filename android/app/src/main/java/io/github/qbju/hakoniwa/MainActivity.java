@@ -92,6 +92,13 @@ public class MainActivity extends Activity implements Installer.Listener {
         root.addView(list, new LinearLayout.LayoutParams(-1, 0, 1));
         setContentView(root);
         reload();
+        UpdateCheck.schedule(this);
+        if (Build.VERSION.SDK_INT >= 33 && UpdateCheck.enabled(this)
+                && checkSelfPermission("android.permission.POST_NOTIFICATIONS") != android.content.pm.PackageManager.PERMISSION_GRANTED
+                && !UpdateCheck.prefs(this).getBoolean("askedNotif", false)) {
+            UpdateCheck.prefs(this).edit().putBoolean("askedNotif", true).apply();
+            requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 1);
+        }
     }
 
     @Override protected void onResume() { super.onResume(); Installer.LISTENERS.add(this); buildChips(); filter(); invalidateOptionsMenu(); }
@@ -103,6 +110,7 @@ public class MainActivity extends Activity implements Installer.Listener {
         int up = updateCount();
         m.add(0, 4, 0, up > 0 ? "マイアプリ " + up : "マイアプリ").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         m.add(0, 1, 0, "再読み込み");
+        m.add(0, 5, 0, "更新を通知する").setCheckable(true).setChecked(UpdateCheck.enabled(this));
         m.add(0, 2, 0, "ウェブ版を開く");
         m.add(0, 3, 0, "アプリを追加する（GitHub）");
         return true;
@@ -112,6 +120,14 @@ public class MainActivity extends Activity implements Installer.Listener {
     public boolean onOptionsItemSelected(MenuItem i) {
         if (i.getItemId() == 4) startActivity(new Intent(this, MyAppsActivity.class));
         else if (i.getItemId() == 1) reload();
+        else if (i.getItemId() == 5) {
+            boolean on = !UpdateCheck.enabled(this);
+            UpdateCheck.setEnabled(this, on);
+            i.setChecked(on);
+            if (on && Build.VERSION.SDK_INT >= 33
+                    && checkSelfPermission("android.permission.POST_NOTIFICATIONS") != android.content.pm.PackageManager.PERMISSION_GRANTED)
+                requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 1);
+        }
         else if (i.getItemId() == 2) open("https://hakoniwa.i2p.workers.dev/");
         else if (i.getItemId() == 3) open("https://github.com/qbju/Hakoniwa/blob/main/CONTRIBUTING.md");
         return true;
