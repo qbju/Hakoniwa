@@ -1,0 +1,18 @@
+name: Hakoniwa
+package: io.github.qbju.hakoniwa
+repo: qbju/Hakoniwa
+license: MIT
+apk: '^hakoniwa-[0-9.]+\.apk$'
+signer: 2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b
+summary: OSSのAndroidアプリを日本語で探せるHakoniwa公式クライアント
+description: |
+  Hakoniwaに収録されたオープンソースのAndroidアプリを、日本語で探してインストール・更新できる公式クライアントです。
+  アプリ一覧は署名を確認してから読み込み、APKもSHA-256を照合してからインストールします。
+  検索、カテゴリ、新着・更新順の並べ替え、更新があるアプリの絞り込みに対応しています。
+screenshots:
+  - 01-list.png
+  - 02-detail.png
+categories: [System]
+author: qbju
+website: https://hakoniwa.i2p.workers.dev/about
+anti_features: []
