@@ -94,13 +94,15 @@ public class MainActivity extends Activity implements Installer.Listener {
         reload();
     }
 
-    @Override protected void onResume() { super.onResume(); Installer.LISTENERS.add(this); buildChips(); filter(); }
+    @Override protected void onResume() { super.onResume(); Installer.LISTENERS.add(this); buildChips(); filter(); invalidateOptionsMenu(); }
     @Override protected void onPause() { super.onPause(); Installer.LISTENERS.remove(this); }
-    @Override public void changed(String pkg) { buildChips(); filter(); }
+    @Override public void changed(String pkg) { buildChips(); filter(); invalidateOptionsMenu(); }
 
     @Override
     public boolean onCreateOptionsMenu(Menu m) {
-        m.add(0, 1, 0, "再読み込み").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        int up = updateCount();
+        m.add(0, 4, 0, up > 0 ? "マイアプリ " + up : "マイアプリ").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        m.add(0, 1, 0, "再読み込み");
         m.add(0, 2, 0, "ウェブ版を開く");
         m.add(0, 3, 0, "アプリを追加する（GitHub）");
         return true;
@@ -108,7 +110,8 @@ public class MainActivity extends Activity implements Installer.Listener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem i) {
-        if (i.getItemId() == 1) reload();
+        if (i.getItemId() == 4) startActivity(new Intent(this, MyAppsActivity.class));
+        else if (i.getItemId() == 1) reload();
         else if (i.getItemId() == 2) open("https://hakoniwa.i2p.workers.dev/");
         else if (i.getItemId() == 3) open("https://github.com/qbju/Hakoniwa/blob/main/CONTRIBUTING.md");
         return true;
@@ -124,7 +127,7 @@ public class MainActivity extends Activity implements Installer.Listener {
         Ui.IO.execute(() -> {
             try {
                 List<Repo.App> a = Repo.load(this);
-                Ui.MAIN.post(() -> { all.clear(); all.addAll(a); spinner.setVisibility(View.GONE); buildChips(); filter(); });
+                Ui.MAIN.post(() -> { all.clear(); all.addAll(a); spinner.setVisibility(View.GONE); buildChips(); filter(); invalidateOptionsMenu(); });
             } catch (Exception e) {
                 Ui.MAIN.post(() -> {
                     spinner.setVisibility(View.GONE);
