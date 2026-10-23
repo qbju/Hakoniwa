@@ -108,6 +108,23 @@ def screenshot_paths(data) -> list:
     return [f"apps/{data['package']}/screenshots/{x}" for x in shots]
 
 
+def icon_path(data) -> str:
+    """任意のアイコン（APK内アイコンがベクターのみのアプリ用）。"""
+    return f"apps/{data['package']}/icon.png"
+
+
+def check_icon(b: bytes, name: str):
+    """PNG・正方形・48〜1024px・1MB以下。問題があれば文字列、なければNone。"""
+    if b[:8] != b"\x89PNG\r\n\x1a\n":
+        return f"`{name}` がPNGではありません"
+    if len(b) > 1024 * 1024:
+        return f"`{name}` が1MBを超えています"
+    w, h = int.from_bytes(b[16:20], "big"), int.from_bytes(b[20:24], "big")
+    if w != h or not 48 <= w <= 1024:
+        return f"`{name}` は48〜1024pxの正方形にしてください（今は {w}x{h}）"
+    return None
+
+
 def check_image(b: bytes, name: str):
     """PNG/JPEGであること・サイズ・縦横を確認。問題があれば文字列、なければNone。"""
     if len(b) > SHOT_BYTES:
