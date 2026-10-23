@@ -23,11 +23,11 @@ def main():
 
     lines, ok = ["## 🏝️ Hakoniwa 自動チェック", ""], True
     import re
-    allowed = re.compile(r"^apps/([^/]+\.yml|[^/]+/screenshots/[^/]+)$")
+    allowed = re.compile(r"^apps/([^/]+\.yml|[^/]+/screenshots/[^/]+|[^/]+/icon\.png)$")
     others = [f["filename"] for f in files if not allowed.match(f["filename"])]
     if others:
         ok = False
-        lines.append("⚠️ アプリ追加PRで変更できるのは `apps/*.yml` と `apps/<パッケージ名>/screenshots/` だけです: " + ", ".join(f"`{x}`" for x in others))
+        lines.append("⚠️ アプリ追加PRで変更できるのは `apps/*.yml`・`apps/<パッケージ名>/screenshots/`・`apps/<パッケージ名>/icon.png` だけです: " + ", ".join(f"`{x}`" for x in others))
     targets = [f for f in files if re.match(r"^apps/[^/]+\.yml$", f["filename"]) and f["status"] != "removed"]
     if not targets and not others:
         lines.append("アプリ定義の追加・変更はありません（削除のみ）。レビューしてください。")
@@ -86,6 +86,18 @@ def main():
             lines += [f"- ❌ {e}" for e in shot_errs]
         else:
             lines.append(f"- ✅ スクリーンショット {len(common.screenshot_paths(data))} 枚OK")
+        ip = common.icon_path(data)
+        try:
+            c = common.gh_api(f"/repos/{head_repo}/contents/{ip}?ref={head_sha}")
+            b = base64.b64decode(c["content"]) if c.get("content") else common.fetch_bytes(c["download_url"])
+            e = common.check_icon(b, ip)
+            if e:
+                ok = False
+                lines.append(f"- ❌ {e}")
+            else:
+                lines.append(f"- ✅ アイコン `{ip}` OK")
+        except Exception:  # noqa: BLE001
+            pass  # 任意（無ければAPK内のアイコンを使う）
         try:
             lic, info = common.repo_license(data["repo"])
             if info.get("archived"):
