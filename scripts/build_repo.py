@@ -60,6 +60,12 @@ def main():
                 (shots_dir / f"{i:02d}{src.suffix.lower()}").write_bytes(src.read_bytes())
             else:
                 problems.append(f"{pkg}: スクリーンショット {sp} が無いか不正")
+        ip = common.ROOT / common.icon_path(app)
+        if ip.exists():
+            if common.check_icon(ip.read_bytes(), common.icon_path(app)):
+                problems.append(f"{pkg}: アイコン {common.icon_path(app)} が不正")
+            else:
+                (META / pkg / "en-US" / "icon.png").write_bytes(ip.read_bytes())
         try:
             rels = common.releases_with_apk(app, limit=KEEP)
         except Exception as e:  # noqa: BLE001
