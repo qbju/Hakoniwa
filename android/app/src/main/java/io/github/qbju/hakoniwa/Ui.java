@@ -97,6 +97,32 @@ final class Ui {
         }
     }
 
+    /** インストール済みの versionName。未インストールなら null。 */
+    static String installedName(Context c, String pkg) {
+        try { return c.getPackageManager().getPackageInfo(pkg, 0).versionName; }
+        catch (PackageManager.NameNotFoundException e) { return null; }
+    }
+
+    /** インストール済みアプリの署名証明書 SHA-256（小文字hex）。取れなければ null。 */
+    @SuppressWarnings("deprecation")
+    static String installedSigner(Context c, String pkg) {
+        try {
+            android.content.pm.Signature[] sig;
+            if (Build.VERSION.SDK_INT >= 28) {
+                PackageInfo pi = c.getPackageManager().getPackageInfo(pkg, PackageManager.GET_SIGNING_CERTIFICATES);
+                if (pi.signingInfo == null || pi.signingInfo.hasMultipleSigners()) return null;
+                android.content.pm.Signature[] h = pi.signingInfo.getSigningCertificateHistory();
+                sig = new android.content.pm.Signature[]{h[h.length - 1]};
+            } else {
+                sig = c.getPackageManager().getPackageInfo(pkg, PackageManager.GET_SIGNATURES).signatures;
+            }
+            if (sig == null || sig.length != 1) return null;
+            return Repo.hex(MessageDigest.getInstance("SHA-256").digest(sig[0].toByteArray())).toLowerCase(java.util.Locale.ROOT);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     // ---- 画像（メモリ＋ディスクキャッシュ） ----
     private static final LruCache<String, Bitmap> MEM = new LruCache<String, Bitmap>(24 << 20) {
         @Override protected int sizeOf(String k, Bitmap b) { return b.getByteCount(); }
