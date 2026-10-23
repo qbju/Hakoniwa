@@ -11,6 +11,7 @@ description: |                      # 必須（30文字以上）
 screenshots:                        # 必須（2〜8枚、apps/<パッケージ名>/screenshots/ に置いたPNG/JPEG）
   - 01.png
   - 02.png
+# アイコン: APK内のアイコンがベクター（アダプティブ）のみで表示されない場合は apps/<パッケージ名>/icon.png（正方形PNG・48〜1024px）を置いてください（任意）
 categories: [Internet]              # Connectivity, Development, Games, Internet, Security, System など
 author: 作者名                      # 必須（同じGitHubアカウントのアプリは同じ作者名に）
 website: https://example.com        # 任意（公式サイト）
