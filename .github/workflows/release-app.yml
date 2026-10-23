@@ -1,0 +1,29 @@
+# Hakoniwa Androidアプリ（クライアント）のReleaseを公開する。
+# 署名鍵はGitHubに置かないため、ローカルで署名済みのAPKを app-release ブランチの release/ に置いてから手動実行する。
+name: release-app
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "versionName (例: 0.1.0)"
+        required: true
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: app-release
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          V: ${{ inputs.version }}
+        run: |
+          f="release/hakoniwa-$V.apk"
+          test -f "$f"
+          sha256sum "$f"
+          gh release create "v$V" "$f" --repo "$GITHUB_REPOSITORY" --target main \
+            --title "Hakoniwa $V" \
+            --notes "Hakoniwa Androidアプリ $V。APK署名証明書 SHA-256: 2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b"
