@@ -20,7 +20,8 @@
    apksigner verify --print-certs app-release.apk | grep SHA-256
    ```
 3. スクリーンショットを2〜8枚、`apps/<パッケージ名>/screenshots/` に置く（PNG/JPEG、各5MB以下、短辺320px以上）
-4. PRを出す（変更するのは `apps/<パッケージ名>.yml` と `apps/<パッケージ名>/screenshots/` だけ）
+   - APK内のアイコンがベクター（アダプティブアイコン）だけで表示されない場合は、`apps/<パッケージ名>/icon.png`（正方形PNG、48〜1024px）も置けます（任意）
+4. PRを出す（変更するのは `apps/<パッケージ名>.yml`・`apps/<パッケージ名>/screenshots/`・`apps/<パッケージ名>/icon.png` だけ）
 5. 自動チェックの結果がコメントされます。❌があれば直してください
 6. メンテナーがレビューしてマージすると、次の更新（最大6時間）でストアに載ります
 
