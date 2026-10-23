@@ -8,10 +8,11 @@ summary: OSSのAndroidアプリを日本語で探せるHakoniwa公式クライ�
 description: |
   Hakoniwaに収録されたオープンソースのAndroidアプリを、日本語で探してインストール・更新できる公式クライアントです。
   アプリ一覧は署名を確認してから読み込み、APKもSHA-256を照合してからインストールします。
-  検索、カテゴリ、新着・更新順の並べ替え、更新があるアプリの絞り込みに対応しています。
+  検索、カテゴリ、新着・更新順の並べ替えに加え、「マイアプリ」で入れたアプリの更新・まとめて更新・削除ができます。
 screenshots:
   - 01-list.png
   - 02-detail.jpg
+  - 03-myapps.png
 categories: [System]
 author: qbju
 website: https://hakoniwa.i2p.workers.dev/about
