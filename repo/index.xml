@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fdroid>
+	<repo icon="icon.png" name="Hakoniwa" pubkey="3082052f30820317a00302010202144cdfb842ab88bbc881b941f9f855ea96da1bede7300d06092a864886f70d01010b050030263111300f06035504030c0848616b6f6e6977613111300f060355040a0c0848616b6f6e6977613020170d3236313032323231333834365a180f32303536313031343231333834365a30263111300f06035504030c0848616b6f6e6977613111300f060355040a0c0848616b6f6e69776130820222300d06092a864886f70d01010105000382020f003082020a0282020100d0deeef2d7a1f09175af06a93068af754f8e32ac1897797d56fe840a7e019cdc75d12ad3d3d0f47ddab0a3c61f09444f32bdb9755fa8ee4cb7968c9f8c6f69480a70985037cc84642e901518bb1e2935f3fdeef2131f736f1c59d2cf7bab5cb71fd978032623ad29f5e06c1f8ce9f5b706b99606bbe6bc00a6a5ba0444d807de7665b98a6ee8b801880ee3135a31863c81ff81e2e55c64c529fc09f22d326b58e2e5ff9bad88d9a924dfbb30d8437512aeef2457d8051470a08bafaa5c1cb28d42637ac8e796010f70ed2eea5a4cf24b1a2b202f27de5e2537b1ac51cfde5824af79f27a7438b07fc42b6a84a85eaf8040c340062499303d9490d6a18014669893d8c71418d2071c766bce59cd91c7b353a76eb1a09c7440d7dc239170190137ef86ff63e6d2559a66ce1735961ca0ba8c339c2ab5eaab5d840b1bb149bedf744a843fcf7d2049b4f949ec78675d09dd46dd9ff074dfc6d71023da0cffca738a05b3335eb35e913283b2b00b3cc1fee8c6c58876900a3c72219ecb6f74566b10f470d642e076968ea5199c8439286ff0e94b3cf0455181427d5c0a93e481fd494eac7e43876322e0c35f665368595caecad46cdab124192aefc740a1a44ec6ab35e45cc16a3533e39aaf0e9209b7d4702b3350dcbb90b5b2cf196d1fbf4ece95df2d7887726e882152a101603f51e91cbd7ed8300e4dc5ccdc4e4c8d4f99d8570203010001a3533051301d0603551d0e041604142aa6ed54c915f54e8a79b1a35cfb15b4b57a5194301f0603551d230418301680142aa6ed54c915f54e8a79b1a35cfb15b4b57a5194300f0603551d130101ff040530030101ff300d06092a864886f70d01010b050003820201000c064dc930db20ae2a744255fbf159bc875ee21129a78ee614bd2d692a12d94a7ff0c37c7f31c2624475a4d1243f88db020a328a4124474bbe3bd46a8904c9fa4add72799327cee4b22240255811f49d6086aa291d38e7bbec42f7b4affff2edc9e18d5b63cfb5129b17bcb4f94dde24c2279bc09179648b14c658e72a57067123288d871236bff53a5adb64aef149f9f1033d18bf7eb63d1ef29c613f8889ca1cc3d6d59384742406ec6221746561abaf41cd872c644aa2751bd00cfe28af5a8bce7736ed495af4ca06da4fc2cf4e1d4c9725f02de558860a7c998cf13543e47b7417f84f8f5365d0658a6ea34fd0af910dd5320193570f05c7900ec76ca9c225840453ca3fd6dee7bd4d271748952528e5ed7b85f07c2cf5a54ba38f4c680c758ca3021c449240662be798a87baf76c5dca6978e23466e165341971315b595e1d05413ac00b0227fc693d0366ddcf1f0b9c6a8fd88814d5aae564c67f54b349b4bd88b8d2cda7424ad96bb3a5418360ba45f00dd3bf08c41d6520a4c04bd24dc628a7d8e7e93d784070f44a6813857cf6b449890a0aa2d0ee10fef93a76622ff759db2fa367a450dc0d9ab8968736eb004d6d96eb08ed4861a99b1fcc2ad3120a3f3292b7d6720c050ba20cd239435a7b92cbf829909da44ffa675abde5c12b8db0d04d9c6d06d7081bb3511532a05e055e867995523057c93813aeeb7539d" timestamp="1792857615" url="https://hakoniwa.i2p.workers.dev/repo" version="20002">
+		<description>GitHub Releasesで配布されているOSSのAndroidアプリを集めたF-Droid互換ストア。 APKは開発者本人の署名で、収録前に人間がレビューしています。 https://hakoniwa.i2p.workers.dev/</description>
+	</repo>
+	<application id="io.github.qbju.hakoniwa">
+		<id>io.github.qbju.hakoniwa</id>
+		<added>2026-10-24</added>
+		<lastupdated>2026-10-24</lastupdated>
+		<name>Hakoniwa</name>
+		<summary>OSSのAndroidアプリを日本語で探せるHakoniwa公式クライアント</summary>
+		<desc>Hakoniwaに収録されたオープンソースのAndroidアプリを、日本語で探してインストール・更新できる公式クライアントです。
+アプリ一覧は署名を確認してから読み込み、APKもSHA-256を照合してからインストールします。
+検索、カテゴリ、新着・更新順の並べ替えに加え、「マイアプリ」で入れたアプリの更新・まとめて更新・削除ができます。
+バックグラウンドで約6時間ごとに更新を確認し、新しい版があれば通知します（メニューでオン・オフ可）。
+</desc>
+		<license>MIT</license>
+		<categories>System</categories>
+		<category>System</category>
+		<web>https://hakoniwa.i2p.workers.dev/about</web>
+		<source>https://github.com/qbju/Hakoniwa</source>
+		<tracker>https://github.com/qbju/Hakoniwa/issues</tracker>
+		<changelog>https://github.com/qbju/Hakoniwa/releases</changelog>
+		<author>qbju</author>
+		<marketversion></marketversion>
+		<marketvercode>3</marketvercode>
+		<package>
+			<version>0.3.0</version>
+			<versioncode>3</versioncode>
+			<apkname>io.github.qbju.hakoniwa_3.apk</apkname>
+			<hash type="sha256">76fba7bf7771998a81ede13a9d09929fcbfb2deec7595f24b6cfd4e9ac0b2c01</hash>
+			<size>44391</size>
+			<sdkver>24</sdkver>
+			<targetSdkVersion>35</targetSdkVersion>
+			<added>2026-10-24</added>
+			<sig>0f4c7f385b49f17df34782d6a801d41a</sig>
+			<permissions>INTERNET,POST_NOTIFICATIONS,QUERY_ALL_PACKAGES,RECEIVE_BOOT_COMPLETED,REQUEST_DELETE_PACKAGES,REQUEST_INSTALL_PACKAGES,UPDATE_PACKAGES_WITHOUT_USER_ACTION</permissions>
+		</package>
+		<package>
+			<version>0.2.0</version>
+			<versioncode>2</versioncode>
+			<apkname>io.github.qbju.hakoniwa_2.apk</apkname>
+			<hash type="sha256">869398b2682f504ddc5e7d1d448609b3c68d7dc7d1d141acb9cac980721f190f</hash>
+			<size>41391</size>
+			<sdkver>24</sdkver>
+			<targetSdkVersion>35</targetSdkVersion>
+			<added>2026-10-24</added>
+			<sig>0f4c7f385b49f17df34782d6a801d41a</sig>
+			<permissions>INTERNET,QUERY_ALL_PACKAGES,REQUEST_DELETE_PACKAGES,REQUEST_INSTALL_PACKAGES,UPDATE_PACKAGES_WITHOUT_USER_ACTION</permissions>
+		</package>
+	</application>
+	<application id="bot.h6e.yggchat">
+		<id>bot.h6e.yggchat</id>
+		<added>2026-10-24</added>
+		<lastupdated>2026-10-24</lastupdated>
+		<name>YggChat</name>
+		<summary>Yggdrasilメッシュネットワーク上で動くサーバー不要のP2Pチャット</summary>
+		<icon>bot.h6e.yggchat.39.png</icon>
+		<desc>YggChatはYggdrasil Network上で端末同士が直接つながるP2Pチャットです。
+サーバーやアカウント登録は不要で、1対1・グループチャット、画像送信、
+QRコードでの連絡先追加、端末移行、暗号化バックアップに対応しています。
+</desc>
+		<license>GPL-3.0-or-later</license>
+		<categories>Internet,Connectivity</categories>
+		<category>Internet</category>
+		<web></web>
+		<source>https://github.com/qbju/YggChat</source>
+		<tracker>https://github.com/qbju/YggChat/issues</tracker>
+		<changelog>https://github.com/qbju/YggChat/releases</changelog>
+		<author>qbju</author>
+		<marketversion></marketversion>
+		<marketvercode>39</marketvercode>
+		<package>
+			<version>0.19.4</version>
+			<versioncode>39</versioncode>
+			<apkname>bot.h6e.yggchat_39.apk</apkname>
+			<hash type="sha256">5f874ea56ef8cdf7dec4308fda7642e19b2d5cfad39c9c915345388cefef1da5</hash>
+			<size>43271088</size>
+			<sdkver>24</sdkver>
+			<targetSdkVersion>34</targetSdkVersion>
+			<added>2026-10-24</added>
+			<sig>d12b817448ded92ef13101be44505bab</sig>
+			<permissions>CAMERA,CHANGE_WIFI_MULTICAST_STATE,FOREGROUND_SERVICE,FOREGROUND_SERVICE_SPECIAL_USE,INTERNET,POST_NOTIFICATIONS</permissions>
+			<nativecode>arm64-v8a,armeabi-v7a,x86,x86_64</nativecode>
+		</package>
+		<package>
+			<version>0.19.3</version>
+			<versioncode>38</versioncode>
+			<apkname>bot.h6e.yggchat_38.apk</apkname>
+			<hash type="sha256">8ccb4d9bc512db87f8371405fc9c0683cc53ca8d2d6a08485aa8988033c17f60</hash>
+			<size>43000752</size>
+			<sdkver>24</sdkver>
+			<targetSdkVersion>34</targetSdkVersion>
+			<added>2026-10-24</added>
+			<sig>d12b817448ded92ef13101be44505bab</sig>
+			<permissions>CAMERA,CHANGE_WIFI_MULTICAST_STATE,FOREGROUND_SERVICE,FOREGROUND_SERVICE_SPECIAL_USE,INTERNET,POST_NOTIFICATIONS</permissions>
+			<nativecode>arm64-v8a,armeabi-v7a,x86,x86_64</nativecode>
+		</package>
+	</application>
+</fdroid>

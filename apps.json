@@ -1,0 +1,37 @@
+[
+ {
+  "package": "io.github.qbju.hakoniwa",
+  "name": "Hakoniwa",
+  "summary": "OSSのAndroidアプリを日本語で探せるHakoniwa公式クライアント",
+  "version": "0.3.0",
+  "license": "MIT",
+  "categories": [
+   "System"
+  ],
+  "source": "https://github.com/qbju/Hakoniwa",
+  "apk": "https://github.com/qbju/Hakoniwa/releases/download/v0.3.0/hakoniwa-0.3.0.apk",
+  "size": 44391,
+  "icon": "repo/io.github.qbju.hakoniwa/en-US/icon_SNJqbYLVDhrds3_I6stpo05Ibx6frayAiZHxg5DApPg=.png",
+  "downloads": 21,
+  "updated": "2026-10-23T07:17:29Z",
+  "added": "2026-10-23T15:37:02+09:00"
+ },
+ {
+  "package": "bot.h6e.yggchat",
+  "name": "YggChat",
+  "summary": "Yggdrasilメッシュネットワーク上で動くサーバー不要のP2Pチャット",
+  "version": "0.19.4",
+  "license": "GPL-3.0-or-later",
+  "categories": [
+   "Internet",
+   "Connectivity"
+  ],
+  "source": "https://github.com/qbju/YggChat",
+  "apk": "https://github.com/qbju/YggChat/releases/download/v0.19.4/yggchat.apk",
+  "size": 43271088,
+  "icon": "repo/icons/bot.h6e.yggchat.39.png",
+  "downloads": 81,
+  "updated": "2026-10-22T12:50:59Z",
+  "added": "2026-10-23T06:53:35+09:00"
+ }
+]
