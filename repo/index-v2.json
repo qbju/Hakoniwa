@@ -1,0 +1,321 @@
+{
+  "repo": {
+    "name": {
+      "en-US": "Hakoniwa"
+    },
+    "description": {
+      "en-US": "GitHub Releasesで配布されているOSSのAndroidアプリを集めたF-Droid互換ストア。 APKは開発者本人の署名で、収録前に人間がレビューしています。 https://hakoniwa.i2p.workers.dev/"
+    },
+    "icon": {
+      "en-US": {
+        "name": "/icons/icon.png",
+        "sha256": "d3edc342aab4ee019dbbe77442ced587bb9fc73bfd2f905a8e81cb2beacf8837",
+        "size": 12566
+      }
+    },
+    "address": "https://hakoniwa.i2p.workers.dev/repo",
+    "timestamp": 1793450338000,
+    "categories": {
+      "Connectivity": {
+        "name": {
+          "en-US": "Connectivity"
+        }
+      },
+      "Internet": {
+        "name": {
+          "en-US": "Internet"
+        }
+      },
+      "System": {
+        "name": {
+          "en-US": "System"
+        }
+      }
+    }
+  },
+  "packages": {
+    "bot.h6e.yggchat": {
+      "metadata": {
+        "added": 1793450329000,
+        "categories": [
+          "Internet",
+          "Connectivity"
+        ],
+        "changelog": "https://github.com/qbju/YggChat/releases",
+        "issueTracker": "https://github.com/qbju/YggChat/issues",
+        "lastUpdated": 1793450333000,
+        "license": "GPL-3.0-or-later",
+        "sourceCode": "https://github.com/qbju/YggChat",
+        "screenshots": {
+          "phone": {
+            "en-US": [
+              {
+                "name": "/bot.h6e.yggchat/en-US/phoneScreenshots/01.png",
+                "sha256": "5931aee691216277950c1bde514b85cd82cdaf427394f3a95089f8a5f85cb898",
+                "size": 63583
+              },
+              {
+                "name": "/bot.h6e.yggchat/en-US/phoneScreenshots/02.png",
+                "sha256": "55797c4c5af0c35be427c954b40c9bbc8a72e240e353f0ec6f2eac8e30cb366b",
+                "size": 62594
+              }
+            ]
+          }
+        },
+        "authorName": "qbju",
+        "authorWebSite": "https://github.com/qbju",
+        "name": {
+          "en-US": "YggChat"
+        },
+        "summary": {
+          "en-US": "Yggdrasilメッシュネットワーク上で動くサーバー不要のP2Pチャット"
+        },
+        "description": {
+          "en-US": "YggChatはYggdrasil Network上で端末同士が直接つながるP2Pチャットです。\nサーバーやアカウント登録は不要で、1対1・グループチャット、画像送信、\nQRコードでの連絡先追加、端末移行、暗号化バックアップに対応しています。\n"
+        },
+        "icon": {
+          "en-US": {
+            "name": "/icons/bot.h6e.yggchat.40.png",
+            "sha256": "168f46b0055e4d870ee42b8de2456c46b5cc366724ef6a525407ffaee2157958",
+            "size": 165
+          }
+        },
+        "preferredSigner": "35a279950821aad8b26b983eec5368d4c8b0345b811cf8ae5aad9b2e3e71bd8f"
+      },
+      "versions": {
+        "55aed59234d11806fac1ab4490ef260423ee6229447c5f130d83a47e693cd856": {
+          "added": 1793450329000,
+          "file": {
+            "name": "/bot.h6e.yggchat_40.apk",
+            "sha256": "55aed59234d11806fac1ab4490ef260423ee6229447c5f130d83a47e693cd856",
+            "size": 43406256
+          },
+          "manifest": {
+            "nativecode": [
+              "arm64-v8a",
+              "armeabi-v7a",
+              "x86",
+              "x86_64"
+            ],
+            "versionName": "0.19.5",
+            "versionCode": 40,
+            "usesSdk": {
+              "minSdkVersion": 24,
+              "targetSdkVersion": 34
+            },
+            "signer": {
+              "sha256": [
+                "35a279950821aad8b26b983eec5368d4c8b0345b811cf8ae5aad9b2e3e71bd8f"
+              ]
+            },
+            "usesPermission": [
+              {
+                "name": "android.permission.INTERNET"
+              },
+              {
+                "name": "android.permission.CHANGE_WIFI_MULTICAST_STATE"
+              },
+              {
+                "name": "android.permission.FOREGROUND_SERVICE"
+              },
+              {
+                "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE"
+              },
+              {
+                "name": "android.permission.POST_NOTIFICATIONS"
+              },
+              {
+                "name": "android.permission.CAMERA"
+              }
+            ]
+          }
+        },
+        "5f874ea56ef8cdf7dec4308fda7642e19b2d5cfad39c9c915345388cefef1da5": {
+          "added": 1793450333000,
+          "file": {
+            "name": "/bot.h6e.yggchat_39.apk",
+            "sha256": "5f874ea56ef8cdf7dec4308fda7642e19b2d5cfad39c9c915345388cefef1da5",
+            "size": 43271088
+          },
+          "manifest": {
+            "nativecode": [
+              "arm64-v8a",
+              "armeabi-v7a",
+              "x86",
+              "x86_64"
+            ],
+            "versionName": "0.19.4",
+            "versionCode": 39,
+            "usesSdk": {
+              "minSdkVersion": 24,
+              "targetSdkVersion": 34
+            },
+            "signer": {
+              "sha256": [
+                "35a279950821aad8b26b983eec5368d4c8b0345b811cf8ae5aad9b2e3e71bd8f"
+              ]
+            },
+            "usesPermission": [
+              {
+                "name": "android.permission.INTERNET"
+              },
+              {
+                "name": "android.permission.CHANGE_WIFI_MULTICAST_STATE"
+              },
+              {
+                "name": "android.permission.FOREGROUND_SERVICE"
+              },
+              {
+                "name": "android.permission.FOREGROUND_SERVICE_SPECIAL_USE"
+              },
+              {
+                "name": "android.permission.POST_NOTIFICATIONS"
+              },
+              {
+                "name": "android.permission.CAMERA"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "io.github.qbju.hakoniwa": {
+      "metadata": {
+        "added": 1793450335000,
+        "categories": [
+          "System"
+        ],
+        "changelog": "https://github.com/qbju/Hakoniwa/releases",
+        "issueTracker": "https://github.com/qbju/Hakoniwa/issues",
+        "lastUpdated": 1793450335000,
+        "license": "MIT",
+        "sourceCode": "https://github.com/qbju/Hakoniwa",
+        "webSite": "https://hakoniwa.i2p.workers.dev/about",
+        "screenshots": {
+          "phone": {
+            "en-US": [
+              {
+                "name": "/io.github.qbju.hakoniwa/en-US/phoneScreenshots/01.png",
+                "sha256": "5452ce1ffa7b1f37a01470365216216d2fd51c0e4ed00b2b8d49a433a0750bb5",
+                "size": 52369
+              },
+              {
+                "name": "/io.github.qbju.hakoniwa/en-US/phoneScreenshots/02.jpg",
+                "sha256": "75a05541dcf36d944b05c49316fe46041944654ef5f2ad89af806f5cbd033fbd",
+                "size": 80866
+              },
+              {
+                "name": "/io.github.qbju.hakoniwa/en-US/phoneScreenshots/03.png",
+                "sha256": "b95a82ab17fb6d203ea400ea5ae69dbc6172e7652b791809f808140d63fd9ce6",
+                "size": 54748
+              }
+            ]
+          }
+        },
+        "authorName": "qbju",
+        "authorWebSite": "https://github.com/qbju",
+        "name": {
+          "en-US": "Hakoniwa"
+        },
+        "summary": {
+          "en-US": "OSSのAndroidアプリを日本語で探せるHakoniwa公式クライアント"
+        },
+        "description": {
+          "en-US": "Hakoniwaに収録されたオープンソースのAndroidアプリを、日本語で探してインストール・更新できる公式クライアントです。\nアプリ一覧は署名を確認してから読み込み、APKもSHA-256を照合してからインストールします。\n検索、カテゴリ、新着・更新順の並べ替えに加え、「マイアプリ」で入れたアプリの更新・まとめて更新・削除ができます。\nバックグラウンドで約6時間ごとに更新を確認し、新しい版があれば通知します（メニューでオン・オフ可）。\n"
+        },
+        "icon": {
+          "en-US": {
+            "name": "/io.github.qbju.hakoniwa/en-US/icon_SNJqbYLVDhrds3_I6stpo05Ibx6frayAiZHxg5DApPg=.png",
+            "sha256": "48d26a6d82d50e1addb37fc8eacb69a34e486f1e9fadac808991f18390c0a4f8",
+            "size": 11246
+          }
+        },
+        "preferredSigner": "2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b"
+      },
+      "versions": {
+        "76fba7bf7771998a81ede13a9d09929fcbfb2deec7595f24b6cfd4e9ac0b2c01": {
+          "added": 1793450335000,
+          "file": {
+            "name": "/io.github.qbju.hakoniwa_3.apk",
+            "sha256": "76fba7bf7771998a81ede13a9d09929fcbfb2deec7595f24b6cfd4e9ac0b2c01",
+            "size": 44391
+          },
+          "manifest": {
+            "versionName": "0.3.0",
+            "versionCode": 3,
+            "usesSdk": {
+              "minSdkVersion": 24,
+              "targetSdkVersion": 35
+            },
+            "signer": {
+              "sha256": [
+                "2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b"
+              ]
+            },
+            "usesPermission": [
+              {
+                "name": "android.permission.INTERNET"
+              },
+              {
+                "name": "android.permission.REQUEST_INSTALL_PACKAGES"
+              },
+              {
+                "name": "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION"
+              },
+              {
+                "name": "android.permission.REQUEST_DELETE_PACKAGES"
+              },
+              {
+                "name": "android.permission.POST_NOTIFICATIONS"
+              },
+              {
+                "name": "android.permission.RECEIVE_BOOT_COMPLETED"
+              },
+              {
+                "name": "android.permission.QUERY_ALL_PACKAGES"
+              }
+            ]
+          }
+        },
+        "869398b2682f504ddc5e7d1d448609b3c68d7dc7d1d141acb9cac980721f190f": {
+          "added": 1793450335000,
+          "file": {
+            "name": "/io.github.qbju.hakoniwa_2.apk",
+            "sha256": "869398b2682f504ddc5e7d1d448609b3c68d7dc7d1d141acb9cac980721f190f",
+            "size": 41391
+          },
+          "manifest": {
+            "versionName": "0.2.0",
+            "versionCode": 2,
+            "usesSdk": {
+              "minSdkVersion": 24,
+              "targetSdkVersion": 35
+            },
+            "signer": {
+              "sha256": [
+                "2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b"
+              ]
+            },
+            "usesPermission": [
+              {
+                "name": "android.permission.INTERNET"
+              },
+              {
+                "name": "android.permission.REQUEST_INSTALL_PACKAGES"
+              },
+              {
+                "name": "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION"
+              },
+              {
+                "name": "android.permission.REQUEST_DELETE_PACKAGES"
+              },
+              {
+                "name": "android.permission.QUERY_ALL_PACKAGES"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

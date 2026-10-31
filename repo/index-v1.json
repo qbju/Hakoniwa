@@ -1,0 +1,251 @@
+{
+  "repo": {
+    "timestamp": 1793450338000,
+    "version": 20002,
+    "name": "Hakoniwa",
+    "icon": "icon.png",
+    "address": "https://hakoniwa.i2p.workers.dev/repo",
+    "description": "GitHub Releases\u3067\u914d\u5e03\u3055\u308c\u3066\u3044\u308bOSS\u306eAndroid\u30a2\u30d7\u30ea\u3092\u96c6\u3081\u305fF-Droid\u4e92\u63db\u30b9\u30c8\u30a2\u3002 APK\u306f\u958b\u767a\u8005\u672c\u4eba\u306e\u7f72\u540d\u3067\u3001\u53ce\u9332\u524d\u306b\u4eba\u9593\u304c\u30ec\u30d3\u30e5\u30fc\u3057\u3066\u3044\u307e\u3059\u3002 https://hakoniwa.i2p.workers.dev/"
+  },
+  "requests": {
+    "install": [],
+    "uninstall": []
+  },
+  "apps": [
+    {
+      "authorName": "qbju",
+      "authorWebSite": "https://github.com/qbju",
+      "categories": [
+        "System"
+      ],
+      "changelog": "https://github.com/qbju/Hakoniwa/releases",
+      "suggestedVersionCode": "3",
+      "description": "Hakoniwa\u306b\u53ce\u9332\u3055\u308c\u305f\u30aa\u30fc\u30d7\u30f3\u30bd\u30fc\u30b9\u306eAndroid\u30a2\u30d7\u30ea\u3092\u3001\u65e5\u672c\u8a9e\u3067\u63a2\u3057\u3066\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u30fb\u66f4\u65b0\u3067\u304d\u308b\u516c\u5f0f\u30af\u30e9\u30a4\u30a2\u30f3\u30c8\u3067\u3059\u3002\n\u30a2\u30d7\u30ea\u4e00\u89a7\u306f\u7f72\u540d\u3092\u78ba\u8a8d\u3057\u3066\u304b\u3089\u8aad\u307f\u8fbc\u307f\u3001APK\u3082SHA-256\u3092\u7167\u5408\u3057\u3066\u304b\u3089\u30a4\u30f3\u30b9\u30c8\u30fc\u30eb\u3057\u307e\u3059\u3002\n\u691c\u7d22\u3001\u30ab\u30c6\u30b4\u30ea\u3001\u65b0\u7740\u30fb\u66f4\u65b0\u9806\u306e\u4e26\u3079\u66ff\u3048\u306b\u52a0\u3048\u3001\u300c\u30de\u30a4\u30a2\u30d7\u30ea\u300d\u3067\u5165\u308c\u305f\u30a2\u30d7\u30ea\u306e\u66f4\u65b0\u30fb\u307e\u3068\u3081\u3066\u66f4\u65b0\u30fb\u524a\u9664\u304c\u3067\u304d\u307e\u3059\u3002\n\u30d0\u30c3\u30af\u30b0\u30e9\u30a6\u30f3\u30c9\u3067\u7d046\u6642\u9593\u3054\u3068\u306b\u66f4\u65b0\u3092\u78ba\u8a8d\u3057\u3001\u65b0\u3057\u3044\u7248\u304c\u3042\u308c\u3070\u901a\u77e5\u3057\u307e\u3059\uff08\u30e1\u30cb\u30e5\u30fc\u3067\u30aa\u30f3\u30fb\u30aa\u30d5\u53ef\uff09\u3002\n",
+      "issueTracker": "https://github.com/qbju/Hakoniwa/issues",
+      "license": "MIT",
+      "name": "Hakoniwa",
+      "sourceCode": "https://github.com/qbju/Hakoniwa",
+      "summary": "OSS\u306eAndroid\u30a2\u30d7\u30ea\u3092\u65e5\u672c\u8a9e\u3067\u63a2\u305b\u308bHakoniwa\u516c\u5f0f\u30af\u30e9\u30a4\u30a2\u30f3\u30c8",
+      "webSite": "https://hakoniwa.i2p.workers.dev/about",
+      "added": 1793450335000,
+      "packageName": "io.github.qbju.hakoniwa",
+      "lastUpdated": 1793450335000,
+      "localized": {
+        "en-US": {
+          "icon": "icon_SNJqbYLVDhrds3_I6stpo05Ibx6frayAiZHxg5DApPg=.png",
+          "phoneScreenshots": [
+            "01.png",
+            "02.jpg",
+            "03.png"
+          ]
+        }
+      }
+    },
+    {
+      "authorName": "qbju",
+      "authorWebSite": "https://github.com/qbju",
+      "categories": [
+        "Internet",
+        "Connectivity"
+      ],
+      "changelog": "https://github.com/qbju/YggChat/releases",
+      "suggestedVersionCode": "40",
+      "description": "YggChat\u306fYggdrasil Network\u4e0a\u3067\u7aef\u672b\u540c\u58eb\u304c\u76f4\u63a5\u3064\u306a\u304c\u308bP2P\u30c1\u30e3\u30c3\u30c8\u3067\u3059\u3002\n\u30b5\u30fc\u30d0\u30fc\u3084\u30a2\u30ab\u30a6\u30f3\u30c8\u767b\u9332\u306f\u4e0d\u8981\u3067\u30011\u5bfe1\u30fb\u30b0\u30eb\u30fc\u30d7\u30c1\u30e3\u30c3\u30c8\u3001\u753b\u50cf\u9001\u4fe1\u3001\nQR\u30b3\u30fc\u30c9\u3067\u306e\u9023\u7d61\u5148\u8ffd\u52a0\u3001\u7aef\u672b\u79fb\u884c\u3001\u6697\u53f7\u5316\u30d0\u30c3\u30af\u30a2\u30c3\u30d7\u306b\u5bfe\u5fdc\u3057\u3066\u3044\u307e\u3059\u3002\n",
+      "issueTracker": "https://github.com/qbju/YggChat/issues",
+      "license": "GPL-3.0-or-later",
+      "name": "YggChat",
+      "sourceCode": "https://github.com/qbju/YggChat",
+      "summary": "Yggdrasil\u30e1\u30c3\u30b7\u30e5\u30cd\u30c3\u30c8\u30ef\u30fc\u30af\u4e0a\u3067\u52d5\u304f\u30b5\u30fc\u30d0\u30fc\u4e0d\u8981\u306eP2P\u30c1\u30e3\u30c3\u30c8",
+      "added": 1793450329000,
+      "icon": "bot.h6e.yggchat.40.png",
+      "packageName": "bot.h6e.yggchat",
+      "lastUpdated": 1793450333000,
+      "localized": {
+        "en-US": {
+          "phoneScreenshots": [
+            "01.png",
+            "02.png"
+          ]
+        }
+      }
+    }
+  ],
+  "packages": {
+    "bot.h6e.yggchat": [
+      {
+        "added": 1793450329000,
+        "apkName": "bot.h6e.yggchat_40.apk",
+        "hash": "55aed59234d11806fac1ab4490ef260423ee6229447c5f130d83a47e693cd856",
+        "hashType": "sha256",
+        "minSdkVersion": 24,
+        "nativecode": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "packageName": "bot.h6e.yggchat",
+        "sig": "d12b817448ded92ef13101be44505bab",
+        "signer": "35a279950821aad8b26b983eec5368d4c8b0345b811cf8ae5aad9b2e3e71bd8f",
+        "size": 43406256,
+        "targetSdkVersion": 34,
+        "uses-permission": [
+          [
+            "android.permission.INTERNET",
+            null
+          ],
+          [
+            "android.permission.CHANGE_WIFI_MULTICAST_STATE",
+            null
+          ],
+          [
+            "android.permission.FOREGROUND_SERVICE",
+            null
+          ],
+          [
+            "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+            null
+          ],
+          [
+            "android.permission.POST_NOTIFICATIONS",
+            null
+          ],
+          [
+            "android.permission.CAMERA",
+            null
+          ]
+        ],
+        "versionCode": 40,
+        "versionName": "0.19.5"
+      },
+      {
+        "added": 1793450333000,
+        "apkName": "bot.h6e.yggchat_39.apk",
+        "hash": "5f874ea56ef8cdf7dec4308fda7642e19b2d5cfad39c9c915345388cefef1da5",
+        "hashType": "sha256",
+        "minSdkVersion": 24,
+        "nativecode": [
+          "arm64-v8a",
+          "armeabi-v7a",
+          "x86",
+          "x86_64"
+        ],
+        "packageName": "bot.h6e.yggchat",
+        "sig": "d12b817448ded92ef13101be44505bab",
+        "signer": "35a279950821aad8b26b983eec5368d4c8b0345b811cf8ae5aad9b2e3e71bd8f",
+        "size": 43271088,
+        "targetSdkVersion": 34,
+        "uses-permission": [
+          [
+            "android.permission.INTERNET",
+            null
+          ],
+          [
+            "android.permission.CHANGE_WIFI_MULTICAST_STATE",
+            null
+          ],
+          [
+            "android.permission.FOREGROUND_SERVICE",
+            null
+          ],
+          [
+            "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+            null
+          ],
+          [
+            "android.permission.POST_NOTIFICATIONS",
+            null
+          ],
+          [
+            "android.permission.CAMERA",
+            null
+          ]
+        ],
+        "versionCode": 39,
+        "versionName": "0.19.4"
+      }
+    ],
+    "io.github.qbju.hakoniwa": [
+      {
+        "added": 1793450335000,
+        "apkName": "io.github.qbju.hakoniwa_3.apk",
+        "hash": "76fba7bf7771998a81ede13a9d09929fcbfb2deec7595f24b6cfd4e9ac0b2c01",
+        "hashType": "sha256",
+        "minSdkVersion": 24,
+        "packageName": "io.github.qbju.hakoniwa",
+        "sig": "0f4c7f385b49f17df34782d6a801d41a",
+        "signer": "2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b",
+        "size": 44391,
+        "targetSdkVersion": 35,
+        "uses-permission": [
+          [
+            "android.permission.INTERNET",
+            null
+          ],
+          [
+            "android.permission.REQUEST_INSTALL_PACKAGES",
+            null
+          ],
+          [
+            "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION",
+            null
+          ],
+          [
+            "android.permission.REQUEST_DELETE_PACKAGES",
+            null
+          ],
+          [
+            "android.permission.POST_NOTIFICATIONS",
+            null
+          ],
+          [
+            "android.permission.RECEIVE_BOOT_COMPLETED",
+            null
+          ],
+          [
+            "android.permission.QUERY_ALL_PACKAGES",
+            null
+          ]
+        ],
+        "versionCode": 3,
+        "versionName": "0.3.0"
+      },
+      {
+        "added": 1793450335000,
+        "apkName": "io.github.qbju.hakoniwa_2.apk",
+        "hash": "869398b2682f504ddc5e7d1d448609b3c68d7dc7d1d141acb9cac980721f190f",
+        "hashType": "sha256",
+        "minSdkVersion": 24,
+        "packageName": "io.github.qbju.hakoniwa",
+        "sig": "0f4c7f385b49f17df34782d6a801d41a",
+        "signer": "2615b27c0b3f6c95056db6bfbd62eb8e3bfa6bb19f73436d799e46b9d9dcd68b",
+        "size": 41391,
+        "targetSdkVersion": 35,
+        "uses-permission": [
+          [
+            "android.permission.INTERNET",
+            null
+          ],
+          [
+            "android.permission.REQUEST_INSTALL_PACKAGES",
+            null
+          ],
+          [
+            "android.permission.UPDATE_PACKAGES_WITHOUT_USER_ACTION",
+            null
+          ],
+          [
+            "android.permission.REQUEST_DELETE_PACKAGES",
+            null
+          ],
+          [
+            "android.permission.QUERY_ALL_PACKAGES",
+            null
+          ]
+        ],
+        "versionCode": 2,
+        "versionName": "0.2.0"
+      }
+    ]
+  }
+}
